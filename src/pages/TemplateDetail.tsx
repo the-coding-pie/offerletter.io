@@ -1,6 +1,9 @@
 import { useCallback, useState } from "react";
 import useModal from "../hooks/useModal";
 import { ModalTypes } from "../types/enums";
+import ContentEditable, {
+  ContentEditableEvent,
+} from "react-controlled-contenteditable";
 
 const TemplateDetail = () => {
   const [value, setValue] = useState("");
@@ -52,13 +55,13 @@ const TemplateDetail = () => {
             Make Placeholder
           </button>
         </div>
-        <textarea
+
+        <div
+          contentEditable={true}
           onBlur={handleBlur}
           className="w-full h-full bg-white p-4 rounded border outline-none mb-6 resize-none"
-          value={value}
-          onChange={handleChange}
           onSelect={handleSelect}
-        ></textarea>
+        ></div>
 
         <div className="buttons flex w-full items-center justify-center gap-x-4">
           <button className="btn primary">Save PDF</button>
