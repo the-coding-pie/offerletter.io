@@ -1,5 +1,7 @@
 import React, { Suspense, lazy } from "react";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import useModal from "./hooks/useModal";
+import Modal from "./components/Modal/Modal";
 
 const BaseLayout = lazy(() => import("./layouts/BaseLayout"));
 const Home = lazy(() => import("./pages/Home"));
@@ -25,10 +27,15 @@ const router = createBrowserRouter([
 ]);
 
 const App = () => {
+  const { modal } = useModal();
   return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <RouterProvider router={router} />
-    </Suspense>
+    <>
+      <Suspense fallback={<div>Loading...</div>}>
+        <RouterProvider router={router} />
+      </Suspense>
+
+      {modal && <Modal {...modal} />}
+    </>
   );
 };
 

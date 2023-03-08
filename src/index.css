@@ -43,6 +43,9 @@
     -webkit-text-size-adjust: 100%;
   }
 
+  .placeholder {
+    @apply text-blue-500;
+  }
   /* custom scrollbar */
   ::-webkit-scrollbar {
     width: 8px;
@@ -63,6 +66,14 @@
   }
 }
 
+@media print {
+  .border {
+    border: none !important;
+  }
+  .placeholder {
+    color: black !important;
+  }
+}
 @layer components {
   .btn {
     @apply px-4 py-2.5 rounded border-none font-semibold;
