@@ -6,7 +6,11 @@ import Modal from "./components/Modal/Modal";
 const BaseLayout = lazy(() => import("./layouts/BaseLayout"));
 const Home = lazy(() => import("./pages/Home"));
 const TemplateDetail = lazy(() => import("./pages/TemplateDetail"));
+const CreateTemplate = lazy(() => import("./pages/CreateTemplate"));
 const Error = lazy(() => import("./pages/Error"));
+
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const router = createBrowserRouter([
   {
@@ -22,6 +26,10 @@ const router = createBrowserRouter([
         path: "template/:id",
         element: <TemplateDetail />,
       },
+      {
+        path: "template/new-template",
+        element: <CreateTemplate />,
+      },
     ],
   },
 ]);
@@ -33,6 +41,8 @@ const App = () => {
       <Suspense fallback={<div>Loading...</div>}>
         <RouterProvider router={router} />
       </Suspense>
+
+      <ToastContainer />
 
       {modal && <Modal {...modal} />}
     </>

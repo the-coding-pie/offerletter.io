@@ -6,9 +6,21 @@ interface Props {
   range: Range;
   setValue: React.Dispatch<React.SetStateAction<string>>;
   myRef: any;
+  setTextSelected: React.Dispatch<
+    React.SetStateAction<{
+      text: string;
+      range: Range;
+    } | null>
+  >;
 }
 
-const PlaceholderModal = ({ text, range, setValue, myRef }: Props) => {
+const PlaceholderModal = ({
+  text,
+  range,
+  setValue,
+  myRef,
+  setTextSelected,
+}: Props) => {
   const [name, setName] = useState("");
 
   const { hideModal } = useModal();
@@ -27,6 +39,7 @@ const PlaceholderModal = ({ text, range, setValue, myRef }: Props) => {
       range?.insertNode(span);
 
       setValue(myRef?.current?.innerHTML);
+      setTextSelected(null);
 
       hideModal();
     },

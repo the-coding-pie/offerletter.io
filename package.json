@@ -12,12 +12,14 @@
     "html-to-pdfmake": "^2.4.16",
     "html2canvas": "^1.4.1",
     "jspdf": "^2.5.1",
+    "nanoid": "^4.0.1",
     "print-js": "^1.6.0",
     "react": "^18.2.0",
     "react-contenteditable": "^3.3.7",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.8.2",
-    "react-to-print": "^2.14.12"
+    "react-to-print": "^2.14.12",
+    "react-toastify": "^9.1.1"
   },
   "devDependencies": {
     "@types/react": "^18.0.27",

@@ -3,22 +3,11 @@ import useModal from "../hooks/useModal";
 import { ModalTypes } from "../types/enums";
 import ContentEditable, { ContentEditableEvent } from "react-contenteditable";
 import { useReactToPrint } from "react-to-print";
-import useTemplate from "../hooks/useTemplate";
-import { useNavigate, useParams } from "react-router-dom";
-import {
-  getAllPlaceholders,
-  replaceSpanTextWithPlaceholder,
-  replaceValue,
-} from "../helpers";
-import { toast } from "react-toastify";
+import { getAllPlaceholders, replaceValue } from "../helpers";
+import { useNavigate } from "react-router";
 
-const TemplateDetail = () => {
+const CreateTemplate = () => {
   const [value, setValue] = useState(``);
-  const { setTemplates, templates } = useTemplate();
-
-  const { id } = useParams();
-
-  const navigate = useNavigate();
 
   const [textSelected, setTextSelected] = useState<{
     text: string;
@@ -27,6 +16,8 @@ const TemplateDetail = () => {
 
   const ref = useRef<any>(null);
   const buttonRef = useRef<any>(null);
+
+  const navigate = useNavigate();
 
   const handlePrint = useReactToPrint({
     content: () => ref.current,
@@ -65,24 +56,6 @@ const TemplateDetail = () => {
     [value]
   );
 
-  const updateTemplate = useCallback(() => {
-    setTemplates((prevValue) =>
-      prevValue.map((t) => {
-        if (t.id === id) {
-          return {
-            ...t,
-            template: replaceSpanTextWithPlaceholder(value),
-          };
-        }
-        return t;
-      })
-    );
-
-    toast("Your template has been updated", { type: "success" });
-
-    navigate("/");
-  }, [setTemplates, value]);
-
   const makePlaceholder = useCallback(() => {
     showModal({
       modalType: ModalTypes.PLACEHOLDER_MODAL,
@@ -95,6 +68,17 @@ const TemplateDetail = () => {
       },
     });
   }, [textSelected, ref]);
+
+  const createTemplate = useCallback(() => {
+    showModal({
+      modalTitle: "Create Template",
+      modalType: ModalTypes.TEMPLATE_MODAL,
+      modalProps: {
+        value,
+        navigate,
+      },
+    });
+  }, [value]);
 
   useEffect(() => {
     const handler = (e: MouseEvent) => {
@@ -117,12 +101,8 @@ const TemplateDetail = () => {
   }, []);
 
   useEffect(() => {
-    const template = templates.find((t) => t.id === id);
-
-    if (template) {
-      setValue(template.template);
-    }
-  }, [templates]);
+    ref?.current?.focus();
+  }, [ref]);
 
   return (
     <div className="template flex-1 w-full px-28 py-8 pb-24 flex gap-x-8">
@@ -155,8 +135,8 @@ const TemplateDetail = () => {
           >
             Save PDF
           </button>
-          <button className="btn success" onClick={updateTemplate}>
-            Update Template
+          <button className="btn success" onClick={createTemplate}>
+            Create Template
           </button>
         </div>
       </div>
@@ -205,4 +185,4 @@ const TemplateDetail = () => {
   );
 };
 
-export default TemplateDetail;
+export default CreateTemplate;

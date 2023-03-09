@@ -4,6 +4,7 @@ import { ModalTypes } from "../../types/enums";
 import useEscKey from "../../hooks/useEscKey";
 import { ModalObj } from "../../types/interfaces";
 import PlaceholderModal from "../ModalComponents/PlaceholderModal";
+import TemplateModal from "../ModalComponents/TemplateModal";
 
 const Modal = ({
   modalType,
@@ -24,6 +25,9 @@ const Modal = ({
   switch (modalType) {
     case ModalTypes.PLACEHOLDER_MODAL:
       Component = PlaceholderModal;
+      break;
+    case ModalTypes.TEMPLATE_MODAL:
+      Component = TemplateModal;
       break;
     default:
       Component = null;
